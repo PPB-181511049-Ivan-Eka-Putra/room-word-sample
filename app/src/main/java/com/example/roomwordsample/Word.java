@@ -10,7 +10,7 @@ public class Word {
 
     @PrimaryKey
     @NonNull
-    @ColumnInfo
+    @ColumnInfo(name = "word")
     private String mWord;
 
     public Word(@NonNull String word) {
