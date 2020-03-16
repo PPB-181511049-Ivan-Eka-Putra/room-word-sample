@@ -1,11 +1,14 @@
 package com.example.roomwordsample;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,5 +25,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mWordViewModel = new ViewModelProvider(this).get(WordViewModel.class);
+
+        mWordViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
+            @Override
+            public void onChanged(List<Word> words) {
+
+                // Update the cached copy of the words in the adapter.
+                adapter.setWords(words);
+            }
+        });
     }
 }
